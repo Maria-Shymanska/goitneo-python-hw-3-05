@@ -1,4 +1,5 @@
 from classes import AddressBook
+from classes import Record
 
 
 
@@ -29,7 +30,10 @@ def add_contact(args, contacts):
         return "Error: Invalid number of arguments. Use 'add [name] [phone number]'."
     
     name, phone = args
-    contacts[name] = phone
+    record = Record(name)
+    record.add_phone(phone)
+
+    contacts.add_record(record)
     return f"Contact {name} added with phone number {phone}."
 
 @input_error
@@ -56,8 +60,9 @@ def show_phone(args, contacts):
         return f"Contact {name} not found."
 
 def show_all(contacts):
-    if not contacts:
-        return "No contacts available."
+    for contact in contacts.items():
+        print(contact)
+        
     
     
 @input_error

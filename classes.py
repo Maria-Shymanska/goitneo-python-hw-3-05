@@ -58,6 +58,9 @@ class Record:
         for p in self.phones:
             if str(p) == phone:
                 return p
+            
+    def add_birthday(self, birthday):
+        self.birthday = Birthday(birthday)
         
 
     def __str__(self):
@@ -75,26 +78,26 @@ class AddressBook(UserDict):
     
     
     
-    def get_birthdays_per_week(users):
+    def get_birthdays_per_week(self):
     
         birthdays_by_day = defaultdict(list)
 
         today = datetime.today().date()
 
-        for user in users:
-            name = user["name"]
-        birthday = user["birthday"].date()
-        birthday_this_year = birthday.replace(year=today.year)
+        for name, record in self.data.items():
+            birthday = datetime.strptime(record.birthday.value, "%d.%m.%Y").date()
+            birthday_this_year = birthday.replace(year=today.year)
 
-        if birthday_this_year < today:
-            birthday_this_year = birthday_this_year.replace(year=today.year + 1)
+            if birthday_this_year < today:
+                birthday_this_year = birthday_this_year.replace(year=today.year + 1)
 
-        delta_days = (birthday_this_year - today).days
+            delta_days = (birthday_this_year - today).days
 
-        day_of_week = (today + timedelta(days=delta_days)).strftime("%A")
-        if delta_days < 7:
-            birthdays_by_day[day_of_week].append(name)
-        else:
-            print("Invalid command")
+            day_of_week = (today + timedelta(days=delta_days)).strftime("%A")
+            if delta_days < 7:
+                birthdays_by_day[day_of_week].append(name)
+            else:
+                print("Invalid command")
+        return birthdays_by_day
         
 
