@@ -79,11 +79,8 @@ def show_birthday(args, contacts):
     return((rec.show_birthday()))
 
 def birthdays(contacts):
-    birthdays_dict = dict(contacts.week_birthdays(contacts))
+    birthdays_dict = dict(contacts.get_birthdays_per_week(contacts))
     return(birthdays_dict)
-
-    # result = "\n".join([f"{name}: {phone}" for name, phone in contacts.items()])
-    # return result
 
 
 
